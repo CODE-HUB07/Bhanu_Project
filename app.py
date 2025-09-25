@@ -7,7 +7,9 @@ import random  # for simulating healthy/diseased leaf
 
 # Create Flask app
 app = Flask(__name__)
-CORS(app)  # allow frontend (HTML) to talk to this backend
+
+# Explicitly allow CORS for your frontend
+CORS(app, resources={r"/predict": {"origins": "https://joyful-souffle-3dce18.netlify.app/"}})  # replace "*" with your Netlify URL for more security
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -35,5 +37,5 @@ def predict():
     return jsonify(prediction)
 
 if __name__ == '__main__':
+    # Listen on all interfaces for Render deployment
     app.run(host='0.0.0.0', port=5000)
-
