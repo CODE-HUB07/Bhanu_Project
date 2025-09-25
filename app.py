@@ -3,13 +3,12 @@ from flask_cors import CORS
 import base64
 import io
 from PIL import Image
-import random  # for simulating healthy/diseased leaf
+import random
 
-# Create Flask app
 app = Flask(__name__)
 
-# Explicitly allow CORS for your frontend
-CORS(app, resources={r"/predict": {"origins": "https://plant-health-detection.netlify.app/"}})
+# Allow only your Netlify frontend for CORS
+CORS(app, resources={r"/predict": {"origins": "https://plant-health-detection.netlify.app"}})
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -39,7 +38,3 @@ def predict():
 if __name__ == '__main__':
     # Listen on all interfaces for Render deployment
     app.run(host='0.0.0.0', port=5000)
-
-
-
-
